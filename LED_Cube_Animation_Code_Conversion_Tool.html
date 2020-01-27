@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!-- saved from url=(0096)file:///Users/hsiehwanting/Downloads/1005_12v_LedCube_Animation_%E8%8B%B1%E6%96%87%E7%89%88.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>LED Cube Animation Code Conversion Tool</title>
+
+    </head>
+<body>
+<div style="margin: 6vw;">
+<h2>Convert the output numbers of the LED cube animation in Unity3D to the code available for Arduino.</h2>
+<div style="text-align: right;">
+Designed by <a href="http://wantinghsieh.com" target="_blank">Wan-Ting Hsieh </a>(2016)
+</div>
+<hr>
+Paste the output number from Unity3D into the right column.: ex. <span style="color: blue; background-color: #FFF3BD;">0,22,33,99,155,266,577,688,911</span>：<input style="font-size: 1em; width: 300px; height: 30px;" type="text" id="myText" value="">
+
+<h3>
+<p>STEP 1: Copy the generated code and paste it into Arduino IDE.<br>
+<br>
+STEP 2: Add the following gray parts manually：
+</p><div style="padding: 2vw; background-color: #FFF3BD;">
+<p style="color: blue;">void function<span style="color: gray;"> "name of the animation"</span>
+  +<span style="color: gray;"> "number of the frame"</span>{   the generated code };</p>
+</div>
+
+
+<br>
+ex.<br>
+<div style="padding: 3vw; background-color: #FFF3BD; color: blue;">
+void starFirstImg(){<br>
+<br>
+digitalWrite(layer[0],1);<span style="color: gray;">    //Anode Layer</span><br>
+<br>
+digitalWrite(column[11],0);<span style="color: gray;">    //Cathode Columns</span><br>
+digitalWrite(column[22],0);<br>
+digitalWrite(column[33],0);<br>
+<br>
+delay(1);<br>
+turnEverythingOff();<br>
+};
+</div>
+<br>
+<p>STEP 3: Generate enough frame functions to create an animation.</p>
+
+<button onclick="myFunction()" style="font-size: 1em;">Generate the code</button>
+</h3>
+<div style="padding: 1vw; background-color: #FFF3BD; color: blue;">
+void function<span style="color: gray;"> "name of the animation"</span>
+    +<span style="color: gray;"> "number of the frame"</span>{
+      <p id="demo"></p>
+   };
+</div>
+
+<script>
+function myFunction() {
+    var x = document.getElementById("myText").value;
+    var array = x.split(',');
+
+var print=[];
+var column=[];
+var layer=[];
+
+var otherWords="<br>delay(1);<br>turnEverythingOff();<br>";
+
+for (var i=0;i<array.length;i++){
+    array[i]=parseInt(array[i]);
+
+if(array[i]>=0 && array[i]<100) {
+   layer[0] ="digitalWrite(layer[0],1);<p>";
+   column[0] +="digitalWrite(column["+array[i]+"],0);<br>";
+   print[0]= layer[0]+column[0]+otherWords;
+}
+else if (array[i]>99 && array[i]<200){
+  layer[1] ="digitalWrite(layer["+Math.floor(array[i]/100)+"],1);<p>";
+  column[1] +="digitalWrite(column["+(array[i]-100)+"],0);<br>";
+  print[1] = layer[1]+column[1]+otherWords;
+}
+else if (array[i]>199 && array[i]<300){
+  layer[2] ="digitalWrite(layer["+Math.floor(array[i]/100)+"],1);<p>";
+  column[2] +="digitalWrite(column["+(array[i]-200)+"],0);<br>";
+  print[2] = layer[2]+column[2]+otherWords;
+}
+else if (array[i]>299 && array[i]<400){
+  layer[3] ="digitalWrite(layer["+Math.floor(array[i]/100)+"],1);<p>";
+  column[3] +="digitalWrite(column["+(array[i]-300)+"],1);<br>";
+  print[3] = layer[3]+column[3]+otherWords;
+}
+else if (array[i]>399 && array[i]<500){
+  layer[4] ="digitalWrite(layer["+Math.floor(array[i]/100)+"],1);<p>";
+  column[4] +="digitalWrite(column["+(array[i]-400)+"],0);<br>";
+  print[4] = layer[4]+column[4]+otherWords;
+}
+else if (array[i]>499 && array[i]<600){
+  layer[5] ="digitalWrite(layer["+Math.floor(array[i]/100)+"],1);<p>";
+  column[5] +="digitalWrite(column["+(array[i]-500)+"],0);<br>";
+  print[5] = layer[5]+column[5]+otherWords;
+}
+else if (array[i]>599 && array[i]<700){
+  layer[6] ="digitalWrite(layer["+Math.floor(array[i]/100)+"],1);<p>";
+  column[6] +="digitalWrite(column["+(array[i]-600)+"],0);<br>";
+  print[6] = layer[6]+column[6]+otherWords;
+}
+else if (array[i]>699 && array[i]<800){
+  layer[7] ="digitalWrite(layer["+Math.floor(array[i]/100)+"],1);<p>";
+  column[7] +="digitalWrite(column["+(array[i]-700)+"],0);<br>";
+  print[7] = layer[7]+column[7]+otherWords;
+}
+else if (array[i]>799 && array[i]<900){
+  layer[8] ="digitalWrite(layer["+Math.floor(array[i]/100)+"],1);<p>";
+  column[8] +="digitalWrite(column["+(array[i]-800)+"],0);<br>";
+  print[8] = layer[8]+column[8]+otherWords;
+}
+else if (array[i]>899 && array[i]<1000){
+  layer[9] ="digitalWrite(layer["+Math.floor(array[i]/100)+"],1);<p>";
+  column[9] +="digitalWrite(column["+(array[i]-900)+"],0);<br>";
+  print[9] = layer[9]+column[9]+otherWords;
+}
+
+
+}
+
+var finalPrint="";
+for (var i=0;i<print.length;i++){
+    //print[i] = print[i].replace("undefined","")+"<p>"+"<br>"+"<p>";
+    //finalPrint+=print[i];
+     finalPrint+=print[i]+"<p>"+"<br>"+"<p>";
+}
+document.getElementById("demo").innerHTML = finalPrint.replace(/undefined/gi,"");
+}
+</script>
+
+
+
+</div></body></html>
